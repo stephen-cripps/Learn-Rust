@@ -35,12 +35,12 @@ fn main() {
     while number < limit {
         let light_str = light.to_string();
         println!("The light is {:?}", light_str);
-        light = next(&light);
+        light = next(light);
         number += 1;
     }
 }
 
-fn next(light: &TrafficLight) -> TrafficLight {
+fn next(light: TrafficLight) -> TrafficLight {
     return match light {
         TrafficLight::Red => TrafficLight::Green,
         TrafficLight::Green => TrafficLight::Amber,
