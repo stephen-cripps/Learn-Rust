@@ -1,6 +1,9 @@
+use std::collections::HashMap;
+
 fn main() {
-    vectors();
-    strings();
+    // vectors();
+    // strings();
+    hashMaps();
 }
 
 fn vectors() {
@@ -50,4 +53,39 @@ fn strings() {
     for c in chars {
         println!("{c}");
     }
+}
+
+fn hashMaps() {
+    let mut scores = HashMap::new();
+    scores.insert(String::from("Blue"), 4);
+    scores.insert(String::from("Red"), 5);
+
+    let team_name = String::from("Blue");
+
+    // use get to pull out scores as an option then unwrap
+    let blue_score = scores.get(&team_name).copied().unwrap_or(0);
+    println!("{blue_score}");
+
+    // Overwrites score
+    scores.insert(String::from("Blue"), 6);
+
+    // Adds score only if key is empty
+    scores.entry(String::from("Blue")).or_insert(10);
+    scores.entry(String::from("Yellow")).or_insert(10);
+
+    // iterate over scores
+    for (key, value) in scores {
+        println!("{key}: {value}")
+    }
+
+    // Updating entry based on old value
+    let text = "This is a sentence of great interest and a bit of repetition";
+    let mut map = HashMap::new();
+
+    for word in text.split_whitespace() {
+        let count = map.entry(word).or_insert(0);
+        *count += 1;
+    }
+
+    println!("{:?}", map)
 }
