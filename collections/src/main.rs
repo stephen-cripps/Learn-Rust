@@ -55,7 +55,7 @@ fn strings() {
     }
 }
 
-fn hashMaps() {
+fn hash_maps() {
     let mut scores = HashMap::new();
     scores.insert(String::from("Blue"), 4);
     scores.insert(String::from("Red"), 5);
