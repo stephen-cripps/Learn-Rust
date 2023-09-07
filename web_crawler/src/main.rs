@@ -74,8 +74,11 @@ async fn main() {
 
             request_tx.send(url.clone()).await.unwrap();
 
-            eprintln!("Active Workers: {}", active_workers);
-            println!("{:?}", url);
+            if active_workers % 1000 == 0 {
+                dbg!("Active Workers: {}", active_workers);
+            }
+
+            println!("{}", url);
         }
     }
 }
@@ -110,7 +113,7 @@ async fn fetch_content(url: &str) -> Result<String, reqwest::Error> {
 
 fn parse_content(content: String) -> Vec<String> {
     //Check only for urls related to "rust" so this eventually finishes without scraping the entire web
-    let re = Regex::new(r#"(https?://[^\s<>"']*rust[^\s<>"']*)"#).unwrap();
+    let re = Regex::new(r#"(https?://[^\s<>'"/?#]*rust[^\s<>'"/?#]*)"#).unwrap();
     re.find_iter(content.as_str())
         .map(|m| m.as_str().to_string())
         .collect()
